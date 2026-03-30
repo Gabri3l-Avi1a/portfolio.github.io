@@ -16,7 +16,7 @@
       position: absolute;
       width: 100px;
       height: 100px;
-      background-color: #3498db;
+      background-color: transparent;
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -33,6 +33,13 @@
     #movableImage:active {
       cursor: grabbing;
     }
+    
+    #movableImage img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -45,7 +52,9 @@
   </main>
   <footer class="site-footer"></footer>
   
-  <div id="movableImage">Move me!</div>
+  <div id="movableImage">
+    <img src="wide-guard-merchant.png" alt="wide-guard-merchant">
+  </div>
 
   <script>
     const image = document.getElementById('movableImage');
