@@ -1,39 +1,18 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const square = document.getElementById('square');
-  
-  if (!square) {
-    console.error('Element with id "square" not found');
-    return;
-  }
-  
-  let x = window.innerWidth / 2 - 50;
-  let y = window.innerHeight / 2 - 50;
-  const speed = 20;
+const movableImage = document.getElementById('movableImage');
 
-  square.style.left = x + 'px';
-  square.style.top = y + 'px';
-
-  const keys = {};
-
-  window.addEventListener('keydown', (e) => {
-    keys[e.key.toLowerCase()] = true;
-  });
-
-  window.addEventListener('keyup', (e) => {
-    keys[e.key.toLowerCase()] = false;
-  });
-
-  function update() {
-    if (keys['w']) y -= speed;
-    if (keys['a']) x -= speed;
-    if (keys['s']) y += speed;
-    if (keys['d']) x += speed;
-
-    square.style.left = x + 'px';
-    square.style.top = y + 'px';
-
-    requestAnimationFrame(update);
-  }
-
-  update();
+document.addEventListener('keydown', (event) => {
+    switch (event.key) {
+        case 'w': 
+            movableImage.style.top = `${movableImage.offsetTop - 10}px`;
+            break;
+        case 's': 
+            movableImage.style.top = `${movableImage.offsetTop + 10}px`;
+            break;
+        case 'a': 
+            movableImage.style.left = `${movableImage.offsetLeft - 10}px`;
+            break;
+        case 'd': 
+            movableImage.style.left = `${movableImage.offsetLeft + 10}px`;
+            break;
+    }
 });
