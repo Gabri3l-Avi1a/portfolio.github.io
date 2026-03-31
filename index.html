@@ -51,45 +51,6 @@
     <section class="faq"></section>
   </main>
   <footer class="site-footer"></footer>
-  
-  <div id="movableImage">
-    <img src="assets/characters/player/wide-guard-merchant.png" alt="wide-guard-merchant">
-  </div>
 
-  <script>
-    const image = document.getElementById('movableImage');
-    let x = window.innerWidth / 2 - 50;
-    let y = window.innerHeight / 2 - 50;
-    const speed = 10;
-    const keys = {};
-
-    // Track which keys are pressed
-    window.addEventListener('keydown', (e) => {
-      keys[e.key.toLowerCase()] = true;
-    });
-
-    window.addEventListener('keyup', (e) => {
-      keys[e.key.toLowerCase()] = false;
-    });
-
-    // Animation loop
-    function updatePosition() {
-      if (keys['w']) y -= speed;
-      if (keys['a']) x -= speed;
-      if (keys['s']) y += speed;
-      if (keys['d']) x += speed;
-
-      // Keep within bounds
-      x = Math.max(0, Math.min(x, window.innerWidth - 100));
-      y = Math.max(0, Math.min(y, window.innerHeight - 100));
-
-      image.style.left = x + 'px';
-      image.style.top = y + 'px';
-
-      requestAnimationFrame(updatePosition);
-    }
-
-    updatePosition();
-  </script>
 </body>
 </html>
