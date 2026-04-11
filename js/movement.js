@@ -10,7 +10,30 @@ class Movement {
             bottom: 100
         };
     }
-
+    // Rectangle example (keep character in area)
+    new Boundary('safeZone', 'rectangle', {
+      left: 100,
+      right: 800,
+      top: 200,
+      bottom: 600
+    });
+    
+    // Circle example (keep character away from center)
+    new Boundary('dangerZone', 'circle', {
+      centerX: 400,
+      centerY: 300,
+      radius: 150
+    });
+    
+    // Polygon example (irregular shape)
+    new Boundary('maze', 'polygon', {
+      points: [
+        {x: 0, y: 0},
+        {x: 100, y: 0},
+        {x: 100, y: 100},
+        {x: 0, y: 100}
+      ]
+    });
     moveForward(distance) {
         this.position.x += distance;
         this.checkBoundaries();
