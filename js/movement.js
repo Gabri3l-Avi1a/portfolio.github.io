@@ -1,65 +1,28 @@
-// Adding backwards movement animation, uncrossable boundary system, and boundary constraint framework
+const movableImage = document.getElementById('movableImage');
+const keys = {};
+const speed= 8
+document.addEventListener('keydown', (event) => {
+    keys[event.key.toLowerCase()] = true;
+});
 
-class Movement {
-    constructor() {
-        this.position = { x: 0, y: 0 };
-        this.boundaries = {
-            left: 0,
-            right: 100,
-            top: 0,
-            bottom: 100
-        };
-    }
-    // Rectangle example (keep character in area)
-    new Boundary('safeZone', 'rectangle', {
-      left: 100,
-      right: 800,
-      top: 200,
-      bottom: 600
-    });
-    
-    // Circle example (keep character away from center)
-    new Boundary('dangerZone', 'circle', {
-      centerX: 400,
-      centerY: 300,
-      radius: 150
-    });
-    
-    // Polygon example (irregular shape)
-    new Boundary('maze', 'polygon', {
-      points: [
-        {x: 0, y: 0},
-        {x: 100, y: 0},
-        {x: 100, y: 100},
-        {x: 0, y: 100}
-      ]
-    });
-    moveForward(distance) {
-        this.position.x += distance;
-        this.checkBoundaries();
-    }
+document.addEventListener('keyup', (event) => {
+    keys[event.key.toLowerCase()] = false;
+});
 
-    moveBackward(distance) {
-        this.position.x -= distance;
-        this.checkBoundaries();
+function moveImage() {
+    if (keys['w']) {
+        movableImage.style.top = `${movableImage.offsetTop - speed}px`;
     }
-
-    checkBoundaries() {
-        if (this.position.x < this.boundaries.left) {
-            this.position.x = this.boundaries.left;
-        } else if (this.position.x > this.boundaries.right) {
-            this.position.x = this.boundaries.right;
-        }
-        // Check other boundaries if required for y-axis
+    if (keys['s']) {
+        movableImage.style.top = `${movableImage.offsetTop + speed}px`;
     }
-
-    getPosition() {
-        return this.position;
+    if (keys['a']) {
+        movableImage.style.left = `${movableImage.offsetLeft - speed}px`;
     }
+    if (keys['d']) {
+        movableImage.style.left = `${movableImage.offsetLeft + speed}px`;
+    }
+    requestAnimationFrame(moveImage);
 }
 
-// Example of using the Movement class
-const movement = new Movement();
-movement.moveForward(10);
-movement.moveBackward(5);
-console.log(movement.getPosition());
+moveImage();
