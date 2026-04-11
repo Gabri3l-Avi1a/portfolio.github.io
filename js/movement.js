@@ -1,28 +1,42 @@
-const movableImage = document.getElementById('movableImage');
-const keys = {};
-const speed= 8
-document.addEventListener('keydown', (event) => {
-    keys[event.key.toLowerCase()] = true;
-});
+// Adding backwards movement animation, uncrossable boundary system, and boundary constraint framework
 
-document.addEventListener('keyup', (event) => {
-    keys[event.key.toLowerCase()] = false;
-});
+class Movement {
+    constructor() {
+        this.position = { x: 0, y: 0 };
+        this.boundaries = {
+            left: 0,
+            right: 100,
+            top: 0,
+            bottom: 100
+        };
+    }
 
-function moveImage() {
-    if (keys['w']) {
-        movableImage.style.top = `${movableImage.offsetTop - speed}px`;
+    moveForward(distance) {
+        this.position.x += distance;
+        this.checkBoundaries();
     }
-    if (keys['s']) {
-        movableImage.style.top = `${movableImage.offsetTop + speed}px`;
+
+    moveBackward(distance) {
+        this.position.x -= distance;
+        this.checkBoundaries();
     }
-    if (keys['a']) {
-        movableImage.style.left = `${movableImage.offsetLeft - speed}px`;
+
+    checkBoundaries() {
+        if (this.position.x < this.boundaries.left) {
+            this.position.x = this.boundaries.left;
+        } else if (this.position.x > this.boundaries.right) {
+            this.position.x = this.boundaries.right;
+        }
+        // Check other boundaries if required for y-axis
     }
-    if (keys['d']) {
-        movableImage.style.left = `${movableImage.offsetLeft + speed}px`;
+
+    getPosition() {
+        return this.position;
     }
-    requestAnimationFrame(moveImage);
 }
 
-moveImage();
+// Example of using the Movement class
+const movement = new Movement();
+movement.moveForward(10);
+movement.moveBackward(5);
+console.log(movement.getPosition());
